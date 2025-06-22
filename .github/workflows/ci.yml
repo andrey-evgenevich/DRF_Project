@@ -95,6 +95,8 @@ jobs:
 
       - name: Установка зависимостей
         run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client postgresql-server-dev-all libpq-dev python3-dev
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           cd ${{ secrets.DEPLOY_DIR }}
           python3 -m venv venv --clear
