@@ -96,19 +96,20 @@ jobs:
       - name: Установка зависимостей
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client postgresql-server-dev-all libpq-dev python3-dev
+          sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+          sudo apt-get update
+          sudo apt-get install -y \
+            postgresql-client-16 \
+            libpq-dev \
+            python3-dev
           cd ${{ secrets.DEPLOY_DIR }}
           python3 -m venv venv --clear
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-          EOF
-
-      - name: Применение миграций
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd ${{ secrets.DEPLOY_DIR }}
-          source venv/bin/activate
-          python manage.py migrate
           EOF
 
       - name: Сбор статических файлов
@@ -117,10 +118,4 @@ jobs:
           cd ${{ secrets.DEPLOY_DIR }}
           source venv/bin/activate
           python manage.py collectstatic --noinput
-          EOF
-
-      - name: Перезапуск приложения
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          sudo systemctl restart myapp.service
           EOF
