@@ -96,7 +96,7 @@ jobs:
       - name: Установка зависимостей
         run: |
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          cd ${{ secrets.DEPLOY_DIR }}/DRF_Project
+          cd ${{ secrets.DEPLOY_DIR }}
           python3 -m venv venv --clear
           source venv/bin/activate
           pip install --upgrade pip
