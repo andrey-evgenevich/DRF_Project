@@ -119,9 +119,3 @@ jobs:
           source venv/bin/activate
           python manage.py collectstatic --noinput
           EOF
-
-      - name: Перезапуск приложения
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
-          sudo systemctl restart myapp.service
-          EOF
