@@ -118,7 +118,7 @@ jobs:
           ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
           cd ${{ secrets.DEPLOY_DIR }}
           source venv/bin/activate
-          python manage.py migrate
+          python3 manage.py migrate
           EOF
 
       - name: Сбор статических файлов
