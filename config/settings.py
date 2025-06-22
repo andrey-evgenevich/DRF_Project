@@ -2,7 +2,6 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 from datetime import timedelta
-import sys
 
 
 load_dotenv(override=True)
@@ -166,4 +165,3 @@ LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "users:login"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-

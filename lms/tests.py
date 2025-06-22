@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.core.files.uploadedfile import SimpleUploadedFile
 
-from lms.models import Course, Lesson, CourseSubscription, CoursePayment
+from lms.models import Course, CourseSubscription, CoursePayment
 
 User = get_user_model()
 
@@ -26,6 +26,7 @@ class CourseModelTest(TestCase):
             owner=self.user,
         )
         self.assertTrue(course.preview.name.startswith("course/preview"))
+
 
 class CourseSubscriptionModelTest(TestCase):
     def setUp(self):
